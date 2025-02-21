@@ -46,7 +46,7 @@ export class LinearAuth {
   private tokenData?: TokenData;
   private linearClient?: LinearClient;
 
-  constructor() {}
+  constructor() { }
 
   public getAuthorizationUrl(): string {
     if (!this.config || this.config.type !== 'oauth') {
@@ -176,7 +176,7 @@ export class LinearAuth {
         expiresAt: Number.MAX_SAFE_INTEGER, // PATs don't expire
       };
       this.linearClient = new LinearClient({
-        accessToken: config.accessToken,
+        apiKey: config.accessToken,
       });
     } else {
       // OAuth flow
