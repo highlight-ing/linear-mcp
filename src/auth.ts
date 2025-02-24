@@ -201,7 +201,7 @@ export class LinearAuth {
   }
 
   public isAuthenticated(): boolean {
-    return !!this.linearClient && !!this.tokenData;
+    return !!this.linearClient;
   }
 
   public needsTokenRefresh(): boolean {
