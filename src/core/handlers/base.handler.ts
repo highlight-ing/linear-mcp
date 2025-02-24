@@ -11,23 +11,23 @@ export abstract class BaseHandler {
   constructor(
     protected readonly auth: LinearAuth,
     protected readonly graphqlClient: LinearGraphQLClient | undefined
-  ) {}
+  ) { }
 
   /**
    * Verifies authentication and returns the GraphQL client.
    * Should be called at the start of each handler method.
    */
   protected verifyAuth(): LinearGraphQLClient {
-    if (!this.auth.isAuthenticated() || !this.graphqlClient) {
+    if (!this.graphqlClient) {
       throw new McpError(
         ErrorCode.InvalidRequest,
-        'Not authenticated. Call linear_auth first.'
+        'No GraphQL client available. Call linear_auth first.'
       );
     }
 
-    if (this.auth.needsTokenRefresh()) {
-      this.auth.refreshAccessToken();
-    }
+    // if (this.auth.needsTokenRefresh()) {
+    //   this.auth.refreshAccessToken();
+    // }
 
     return this.graphqlClient;
   }
