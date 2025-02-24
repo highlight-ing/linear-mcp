@@ -18,16 +18,16 @@ export abstract class BaseHandler {
    * Should be called at the start of each handler method.
    */
   protected verifyAuth(): LinearGraphQLClient {
-    if (!this.graphqlClient) {
+    if (!this.auth.isAuthenticated() || !this.graphqlClient) {
       throw new McpError(
         ErrorCode.InvalidRequest,
-        'No GraphQL client available. Call linear_auth first.'
+        'Not authenticated. Call linear_auth first.'
       );
     }
 
-    // if (this.auth.needsTokenRefresh()) {
-    //   this.auth.refreshAccessToken();
-    // }
+    if (this.auth.needsTokenRefresh()) {
+      this.auth.refreshAccessToken();
+    }
 
     return this.graphqlClient;
   }
